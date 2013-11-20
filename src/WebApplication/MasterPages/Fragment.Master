@@ -1,0 +1,5 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Fragment.master.cs" Inherits="WebApplication.MasterPages.Fragment" %>
+    
+<asp:ContentPlaceHolder ID="MainContent" runat="server">
+        
+</asp:ContentPlaceHolder>
