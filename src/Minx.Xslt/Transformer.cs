@@ -7,7 +7,7 @@ using System.Xml;
 using System.Xml.Xsl;
 using System.IO;
 
-namespace Minx.Xslt
+namespace Infrastructure.Xml.Xsl
 {
     /// <summary>
     /// A wrapper class that 
@@ -29,7 +29,7 @@ namespace Minx.Xslt
             settings.Resolver = settings.Resolver ?? new XmlUrlResolver();
 
             // wrap the provided settings object with a read only version.
-            this.Settings = new ReadOnlyTransformerSettings(settings);
+           Settings = new ReadOnlyTransformerSettings(settings);
         }
 
 
@@ -59,12 +59,12 @@ namespace Minx.Xslt
                 // Make sure we have a transformer.
                 if (this.transformer == null)
                 {
-                    throw new MethodCallRequiredException("Load",
-                        "Method Load must be called before accessing property OutputSettings");
+                    throw new InvalidOperationException(
+                        "An overload of method 'Load' must be called before accessing property 'OutputSettings'");
                 }
 
                 // return the output setting from the transformer.
-                return this.transformer.OutputSettings;
+                return transformer.OutputSettings;
             }
         }
 
@@ -80,11 +80,11 @@ namespace Minx.Xslt
         public void Load(System.Xml.XPath.IXPathNavigable stylesheet)
         {
             // Instantiate a new instance of the XslCompiledTransform class
-            this.transformer = new XslCompiledTransform(this.Settings.EnableDebug);
+           transformer = new XslCompiledTransform(this.Settings.EnableDebug);
 
             // Load the style sheet using the provided settings and resolver.
-            this.transformer.Load(stylesheet, new XsltSettings(
-                this.Settings.EnableDocumentFunction, this.Settings.EnableScript), this.Settings.Resolver);
+           transformer.Load(stylesheet, new XsltSettings(
+               Settings.EnableDocumentFunction,Settings.EnableScript),Settings.Resolver);
         }
 
         /// <summary>
@@ -94,11 +94,11 @@ namespace Minx.Xslt
         public void Load(FileInfo stylesheet)
         {
             // Instantiate a new instance of the XslCompiledTransform class
-            this.transformer = new XslCompiledTransform(this.Settings.EnableDebug);
+           transformer = new XslCompiledTransform(this.Settings.EnableDebug);
 
             // Load the style sheet using the provided settings and resolver.
-            this.transformer.Load(stylesheet.ToString(), new XsltSettings(
-                this.Settings.EnableDocumentFunction, this.Settings.EnableScript), this.Settings.Resolver);
+           transformer.Load(stylesheet.ToString(), new XsltSettings(
+               Settings.EnableDocumentFunction,Settings.EnableScript),Settings.Resolver);
         }
 
         /// <summary>
@@ -111,11 +111,11 @@ namespace Minx.Xslt
         public void Load(string stylesheetUri)
         {
             // Instantiate a new instance of the XslCompiledTransform class
-            this.transformer = new XslCompiledTransform(this.Settings.EnableDebug);
+           transformer = new XslCompiledTransform(this.Settings.EnableDebug);
 
             // Load the style sheet using the provided settings and resolver.
-            this.transformer.Load(stylesheetUri, new XsltSettings(
-                this.Settings.EnableDocumentFunction, this.Settings.EnableScript), this.Settings.Resolver);
+           transformer.Load(stylesheetUri, new XsltSettings(
+               Settings.EnableDocumentFunction,Settings.EnableScript),Settings.Resolver);
         }
 
         /// <summary>
@@ -125,11 +125,11 @@ namespace Minx.Xslt
         public void Load(XmlReader stylesheet)
         {
             // Instantiate a new instance of the XslCompiledTransform class
-            this.transformer = new XslCompiledTransform(this.Settings.EnableDebug);
+           transformer = new XslCompiledTransform(this.Settings.EnableDebug);
 
             // Load the style sheet using the provided settings and resolver.
-            this.transformer.Load(stylesheet, new XsltSettings(
-                this.Settings.EnableDocumentFunction, this.Settings.EnableScript), this.Settings.Resolver);
+           transformer.Load(stylesheet, new XsltSettings(
+               Settings.EnableDocumentFunction,Settings.EnableScript),Settings.Resolver);
         }
 
         /// <summary>
@@ -139,11 +139,11 @@ namespace Minx.Xslt
         public void Load(Stream stylesheet)
         {
             // Instantiate a new instance of the XslCompiledTransform class
-            this.transformer = new XslCompiledTransform(this.Settings.EnableDebug);
+           transformer = new XslCompiledTransform(this.Settings.EnableDebug);
 
             // Load the style sheet using the provided settings and resolver.
-            this.transformer.Load(XmlReader.Create(stylesheet), new XsltSettings(
-                this.Settings.EnableDocumentFunction, this.Settings.EnableScript), this.Settings.Resolver);
+           transformer.Load(XmlReader.Create(stylesheet), new XsltSettings(
+               Settings.EnableDocumentFunction,Settings.EnableScript),Settings.Resolver);
         }
 
         /// <summary>
@@ -160,9 +160,9 @@ namespace Minx.Xslt
         /// <param name="arguments">An optional parameter that provide additional input and functionality to the XSLT transformer</param>
         public void Transform(IXPathNavigable input, System.IO.Stream result, TransformArguments arguments = null)
         {
-            using (XmlWriter writer = XmlWriter.Create(result, this.transformer.OutputSettings))
+            using (XmlWriter writer = XmlWriter.Create(result,transformer.OutputSettings))
             {
-                this.Transform(input, writer, arguments);
+               Transform(input, writer, arguments);
                 writer.Flush();
             }
         }
@@ -181,9 +181,9 @@ namespace Minx.Xslt
         /// <param name="arguments">An optional parameter that provide additional input and functionality to the XSLT transformer</param>
         public void Transform(IXPathNavigable input, System.IO.TextWriter result, TransformArguments arguments = null)
         {
-            using (XmlWriter writer = XmlWriter.Create(result, this.transformer.OutputSettings))
+            using (XmlWriter writer = XmlWriter.Create(result,transformer.OutputSettings))
             {
-                this.Transform(input, writer, arguments);
+               Transform(input, writer, arguments);
                 writer.Flush();
             }
         }
@@ -202,9 +202,9 @@ namespace Minx.Xslt
         /// <param name="arguments">An optional parameter that provide additional input and functionality to the XSLT transformer</param>
         public void Transform(IXPathNavigable input, System.Text.StringBuilder result, TransformArguments arguments = null)
         {
-            using (XmlWriter writer = XmlWriter.Create(result, this.transformer.OutputSettings))
+            using (XmlWriter writer = XmlWriter.Create(result,transformer.OutputSettings))
             {
-                this.Transform(input, writer, arguments);
+               Transform(input, writer, arguments);
                 writer.Flush();
             }
         }
@@ -227,7 +227,7 @@ namespace Minx.Xslt
         /// <param name="arguments">An optional parameter that provide additional input and functionality to the XSLT transformer</param>
         public void Transform(IXPathNavigable input, XmlWriter result, TransformArguments arguments = null)
         {
-            this.transformer.Transform(input, arguments != null ? arguments.CreateArguments() : null, result, this.Settings.Resolver);
+            transformer.Transform(input, arguments != null ? arguments.CreateArguments() : null, result,Settings.Resolver);
         }
 
         /// <summary>
@@ -241,9 +241,9 @@ namespace Minx.Xslt
         /// <param name="arguments">An optional parameter that provide additional input and functionality to the XSLT transformer</param>
         public void Transform(XmlReader input, System.IO.Stream result, TransformArguments arguments = null)
         {
-            using (XmlWriter writer = XmlWriter.Create(result, this.transformer.OutputSettings))
+            using (XmlWriter writer = XmlWriter.Create(result,transformer.OutputSettings))
             {
-                this.Transform(input, writer, arguments);
+                Transform(input, writer, arguments);
                 writer.Flush();
             }
         }
@@ -259,9 +259,9 @@ namespace Minx.Xslt
         /// <param name="arguments">An optional parameter that provide additional input and functionality to the XSLT transformer</param>
         public void Transform(XmlReader input, System.IO.TextWriter result, TransformArguments arguments = null)
         {
-            using (XmlWriter writer = XmlWriter.Create(result, this.transformer.OutputSettings))
+            using (XmlWriter writer = XmlWriter.Create(result,transformer.OutputSettings))
             {
-                this.Transform(input, writer, arguments);
+                Transform(input, writer, arguments);
                 writer.Flush();
             }
         }
@@ -277,9 +277,9 @@ namespace Minx.Xslt
         /// <param name="arguments">An optional parameter that provide additional input and functionality to the XSLT transformer</param>
         public void Transform(XmlReader input, System.Text.StringBuilder result, TransformArguments arguments = null)
         {
-            using (XmlWriter writer = XmlWriter.Create(result, this.transformer.OutputSettings))
+            using (XmlWriter writer = XmlWriter.Create(result,transformer.OutputSettings))
             {
-                this.Transform(input, writer, arguments);
+                Transform(input, writer, arguments);
                 writer.Flush();
             }
         }
@@ -299,7 +299,7 @@ namespace Minx.Xslt
         /// <param name="arguments">An optional parameter that provide additional input and functionality to the XSLT transformer</param>
         public void Transform(XmlReader input, XmlWriter result, TransformArguments arguments = null)
         {
-            this.transformer.Transform(input, arguments != null ? arguments.CreateArguments() : null, result, this.Settings.Resolver);
+           transformer.Transform(input, arguments != null ? arguments.CreateArguments() : null, result,Settings.Resolver);
         }
     }
 }

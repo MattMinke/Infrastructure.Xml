@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Minx.Xslt
+namespace Infrastructure.Xml.Xsl
 {
     /// <summary>
     /// Public methods exposed by implementers of this interface can be called from inside an XSLT transformer. 

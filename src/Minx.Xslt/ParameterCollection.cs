@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.XPath;
 
-namespace Minx.Xslt
+namespace Infrastructure.Xml.Xsl
 {
 
     /// <summary>
@@ -33,7 +33,7 @@ namespace Minx.Xslt
         /// </summary>
         /// <param name="name">The name to associate with the parameter</param>
         /// <param name="value">The value to associate with the parameter</param>
-        public void AddParameter(string name, string value)
+        public void Add(string name, string value)
         {
             this._parameters.Add(name, value);
         }
@@ -42,17 +42,7 @@ namespace Minx.Xslt
         /// </summary>
         /// <param name="name">The name to associate with the parameter</param>
         /// <param name="value">The value to associate with the parameter</param>
-        public void AddParameter(string name, bool value)
-        {
-            this._parameters.Add(name, value);
-        }
-
-        /// <summary>
-        /// Adds a parameter to the collection.
-        /// </summary>
-        /// <param name="name">The name to associate with the parameter</param>
-        /// <param name="value">The value to associate with the parameter</param>
-        public void AddParameter(string name, int value)
+        public void Add(string name, bool value)
         {
             this._parameters.Add(name, value);
         }
@@ -62,7 +52,17 @@ namespace Minx.Xslt
         /// </summary>
         /// <param name="name">The name to associate with the parameter</param>
         /// <param name="value">The value to associate with the parameter</param>
-        public void AddParameter(string name, double value)
+        public void Add(string name, int value)
+        {
+            this._parameters.Add(name, value);
+        }
+
+        /// <summary>
+        /// Adds a parameter to the collection.
+        /// </summary>
+        /// <param name="name">The name to associate with the parameter</param>
+        /// <param name="value">The value to associate with the parameter</param>
+        public void Add(string name, double value)
         {
             this._parameters.Add(name, value);
         }

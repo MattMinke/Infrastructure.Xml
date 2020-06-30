@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml;
 
-namespace Minx.Xslt
+namespace Infrastructure.Xml.Xsl
 {
     /// <summary>
     /// Specifies the XSLT features to support during the execution of a XSLT style sheet.
@@ -16,7 +15,6 @@ namespace Minx.Xslt
         /// </summary>
         public TransformerSettings()
         {
-
         }
 
         /// <summary>
@@ -66,45 +64,6 @@ namespace Minx.Xslt
         /// </summary>
         public virtual XmlResolver Resolver { get; set; }
 
-    }
-
-    /// <summary>
-    /// A read only version of the TransformerSettings class. Any Attempt to set a property will throw a <see cref="System.NotSupportedException"/>
-    /// </summary>
-    public class ReadOnlyTransformerSettings : TransformerSettings
-    {
-
-        public ReadOnlyTransformerSettings(TransformerSettings settings)
-        {
-            this._settings = settings;
-        }
-
-
-        private TransformerSettings _settings;
-
-        public override bool EnableDebug
-        {
-            get { return this._settings.EnableDebug; }
-            set { throw new NotSupportedException("Setting of property 'EnableDebug' is not supported"); }
-        }
-
-        public override bool EnableDocumentFunction
-        {
-            get { return this._settings.EnableDocumentFunction; }
-            set { throw new NotSupportedException("Setting of property 'EnableDocumentFunction' is not supported"); }
-        }
-
-        public override bool EnableScript
-        {
-            get { return this._settings.EnableScript; }
-            set { throw new NotSupportedException("Setting of property 'EnableScript' is not supported"); }
-        }
-
-        public override XmlResolver Resolver
-        {
-            get { return this._settings.Resolver; }
-            set { throw new NotSupportedException("Setting of property 'Resolver' is not supported"); }
-        }
     }
 
 }
