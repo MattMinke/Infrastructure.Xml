@@ -44,14 +44,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IXmlSerializerFactory.cs" />
-    <Compile Include="IXsltFunctionProvider.cs" />
-    <Compile Include="ParameterCollection.cs" />
-    <Compile Include="ReadOnlyTransformerSettings.cs" />
-    <Compile Include="TransformArguments.cs" />
-    <Compile Include="Transformer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TransformerSettings.cs" />
     <Compile Include="XmlSerializerFactory.cs" />
+    <Compile Include="Xsl\IXsltFunctionProvider.cs" />
+    <Compile Include="Xsl\ParameterCollection.cs" />
+    <Compile Include="Xsl\ReadOnlyTransformerSettings.cs" />
+    <Compile Include="Xsl\TransformArguments.cs" />
+    <Compile Include="Xsl\Transformer.cs" />
+    <Compile Include="Xsl\TransformerSettings.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
