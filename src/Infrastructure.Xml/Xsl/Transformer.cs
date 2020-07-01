@@ -50,7 +50,7 @@ namespace Infrastructure.Xml.Xsl
         /// accessed until a Load method has been called.
         /// </summary>
         /// <remarks>
-        /// http://blogs.msdn.com/b/eriksalt/archive/2005/07/27/outputsettings.aspx
+        /// https://web.archive.org/web/20140513023506/http://blogs.msdn.com/b/eriksalt/archive/2005/07/27/outputsettings.aspx
         /// </remarks>
         public XmlWriterSettings OutputSettings
         {
